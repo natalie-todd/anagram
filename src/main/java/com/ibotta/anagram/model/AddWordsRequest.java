@@ -11,19 +11,19 @@ import java.util.List;
 import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"wordsToAdd"})
+@JsonPropertyOrder({"words"})
 public final class AddWordsRequest {
     @Valid
     @NotNull
-    private final List<String> wordsToAdd;
+    private final List<String> words;
 
     @JsonCreator
-    public AddWordsRequest(@JsonProperty List<String> wordsToAdd) {
-        this.wordsToAdd = wordsToAdd;
+    public AddWordsRequest(@JsonProperty List<String> words) {
+        this.words = words;
     }
 
-    public List<String> getWordsToAdd() {
-        return wordsToAdd;
+    public List<String> getWords() {
+        return words;
     }
 
     @Override
@@ -31,18 +31,18 @@ public final class AddWordsRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AddWordsRequest that = (AddWordsRequest) o;
-        return Objects.equals(wordsToAdd, that.wordsToAdd);
+        return Objects.equals(words, that.words);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(wordsToAdd);
+        return Objects.hash(words);
     }
 
     @Override
     public String toString() {
         return "AddWordsRequest{" +
-                "wordsToAdd=" + wordsToAdd +
+                "words=" + words +
                 '}';
     }
 }

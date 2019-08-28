@@ -25,10 +25,10 @@ public class Controller {
         this.anagramService = anagramService;
     }
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/words", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
+    @RequestMapping(value = "/words.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
     public ResponseEntity<AddWordsResponse> addWords(@Valid @RequestBody AddWordsRequest request) {
     ResponseEntity response = anagramService.addWords(request);
-
+        System.out.println("----->"+response);
     return response;
     }
     @CrossOrigin(origins = "*")

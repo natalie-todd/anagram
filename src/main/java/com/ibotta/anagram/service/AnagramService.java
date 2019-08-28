@@ -22,7 +22,7 @@ public class AnagramService {
     }
 
     public ResponseEntity<AddWordsResponse> addWords(AddWordsRequest request) {
-        List<String> wordsToAdd = request.getWordsToAdd();
+        List<String> wordsToAdd = request.getWords();
         wordsToAdd.stream()
                 .forEach(word -> {
                     if(!dictionary.contains(word))
