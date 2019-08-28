@@ -1,6 +1,8 @@
 package com.ibotta.anagram.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import javax.validation.Valid;
@@ -15,7 +17,8 @@ public final class AddWordsRequest {
     @NotNull
     private final List<String> wordsToAdd;
 
-    public AddWordsRequest(@Valid @NotNull List<String> wordsToAdd) {
+    @JsonCreator
+    public AddWordsRequest(@JsonProperty List<String> wordsToAdd) {
         this.wordsToAdd = wordsToAdd;
     }
 

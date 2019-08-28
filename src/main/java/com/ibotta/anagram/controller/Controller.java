@@ -4,10 +4,11 @@ import com.ibotta.anagram.model.AddWordsResponse;
 import com.ibotta.anagram.model.AddWordsRequest;
 import com.ibotta.anagram.model.AnagramsFoundResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import service.AnagramService;
+import com.ibotta.anagram.service.AnagramService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -24,20 +25,38 @@ public class Controller {
         this.anagramService = anagramService;
     }
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/words.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/words", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
     public ResponseEntity<AddWordsResponse> addWords(@Valid @RequestBody AddWordsRequest request) {
     ResponseEntity response = anagramService.addWords(request);
 
     return response;
     }
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/anagrams/:word.json")
+    @RequestMapping(value = "/anagrams/{word}.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
     public ResponseEntity<AnagramsFoundResponse> findAnagrams(
-    @NotEmpty @RequestHeader(value = "word") String word
+            @PathVariable("word") String word
     ) {
-        ResponseEntity<AnagramsFoundResponse> response = anagramService.findAnagrams(word);
+        AnagramsFoundResponse response = anagramService.findAnagrams(word);
 
-        return response;
+        return ResponseEntity.ok(response);
+    }
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/words/:word.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.DELETE)
+    public ResponseEntity<AnagramsFoundResponse> deleteWord(
+            @NotEmpty @RequestHeader(value = "word") String word
+    ) {
+        AnagramsFoundResponse response = anagramService.deleteWord(word);
+
+        return ResponseEntity.ok(response);
+    }
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/words.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.DELETE)
+    public ResponseEntity<AnagramsFoundResponse> deleteAll(
+            @NotEmpty @RequestHeader(value = "word") String word
+    ) {
+        AnagramsFoundResponse response = anagramService.deleteWord(word);
+
+        return ResponseEntity.ok(response);
     }
 }
 
