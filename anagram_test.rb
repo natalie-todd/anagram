@@ -40,7 +40,7 @@ class TestCases < Test::Unit::TestCase
 
     assert_not_nil(body['anagrams'])
 
-    expected_anagrams = %w(ared daer dare dear)
+    expected_anagrams = %w(dare dear)
     assert_equal(expected_anagrams, body['anagrams'].sort)
   end
 
@@ -116,6 +116,6 @@ class TestCases < Test::Unit::TestCase
 
     body = JSON.parse(res.body)
 
-    assert_equal(['ared', 'daer', 'dare'], body['anagrams'])
+    assert_equal(['dare'], body['anagrams'])
   end
 end

@@ -16,7 +16,6 @@ public class DataStore {
     public List<String> dictionary() throws IOException {
         List<String> dictionary = new ArrayList<>();
 
-        System.out.println("HERE >>>> = " + new java.io.File( "." ).getCanonicalPath());
         BufferedReader bufferedReader = new BufferedReader(
                 new FileReader("dictionary.txt"));
         try {

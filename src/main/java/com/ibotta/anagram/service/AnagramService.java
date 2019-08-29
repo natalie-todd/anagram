@@ -49,14 +49,16 @@ public class AnagramService {
                 .collect(Collectors.toList());
 
         ArrayList<String> myList = new ArrayList<String>();
-        if (limit != null) {
+        if ((limit != null) && (dictionary.size() > 0)) {
             int i = 0;
             do {
                 i++;
                 myList.add(anagrams.get(i));
             } while (i < limit);
-        } else {
+        } else if ((limit == null) && (dictionary.size() > 0)){
             myList = new ArrayList<String>(anagrams);
+        } else {
+            myList = new ArrayList<String>();
         }
 
         AnagramsFoundResponse response = AnagramsFoundResponseBuilder.anagramsFoundResponseBuilder()
