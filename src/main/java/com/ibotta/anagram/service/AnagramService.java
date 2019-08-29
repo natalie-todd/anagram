@@ -2,7 +2,9 @@ package com.ibotta.anagram.service;
 
 import com.ibotta.anagram.model.AddWordsRequest;
 import com.ibotta.anagram.model.AnagramsFoundResponse;
+import com.ibotta.anagram.model.CountResponse;
 import com.ibotta.anagram.model.builder.AnagramsFoundResponseBuilder;
+import com.ibotta.anagram.model.builder.CountResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -53,7 +55,7 @@ public class AnagramService {
                 i++;
                 myList.add(anagrams.get(i));
             } while (i < limit);
-        } else if ((limit == null) && (dictionary.size() > 0)){
+        } else if ((limit == null) && (dictionary.size() > 0)) {
             myList = new ArrayList<String>(anagrams);
         } else {
             myList = new ArrayList<String>();
@@ -77,5 +79,13 @@ public class AnagramService {
         dictionary.removeAll(dictionary);
 
         return ResponseEntity.noContent().build();
+    }
+
+    public CountResponse countWords() {
+        int length = dictionary.size();
+
+        CountResponse response = CountResponseBuilder.countResponseBuilder().corpusTotal(length).build();
+
+        return response;
     }
 }

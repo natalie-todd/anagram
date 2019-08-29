@@ -2,6 +2,7 @@ package com.ibotta.anagram.controller;
 
 import com.ibotta.anagram.model.AddWordsRequest;
 import com.ibotta.anagram.model.AnagramsFoundResponse;
+import com.ibotta.anagram.model.CountResponse;
 import com.ibotta.anagram.service.AnagramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -53,6 +54,14 @@ public class Controller {
         ResponseEntity<Void> response = anagramService.deleteAll();
 
         return response;
+    }
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/count.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
+    public ResponseEntity<CountResponse> findAnagrams(
+    ) {
+        CountResponse response = anagramService.countWords();
+
+        return ResponseEntity.ok(response);
     }
 }
 
