@@ -118,4 +118,32 @@ class TestCases < Test::Unit::TestCase
 
     assert_equal(['dare'], body['anagrams'])
   end
+
+  def test_fetching_count
+
+    # fetch count
+    res = @client.get('/count.json')
+
+    assert_equal('200', res.code, "Unexpected response code")
+    assert_not_nil(res.body)
+
+  end
+
+  def test_deleting_all_words_multiple_times_count
+
+    3.times do
+      res = @client.delete('/words.json')
+
+      assert_equal('204', res.code, "Unexpected response code")
+    end
+
+    # should fetch an empty body
+    res = @client.get('/count.json')
+
+    assert_equal('200', res.code, "Unexpected response code")
+
+    body = JSON.parse(res.body)
+
+    assert_equal(0, body['anagrams'].size)
+  end
 end
