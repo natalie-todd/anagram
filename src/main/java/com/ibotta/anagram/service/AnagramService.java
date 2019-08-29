@@ -1,7 +1,7 @@
 package com.ibotta.anagram.service;
 
-import com.ibotta.anagram.model.AddWordsResponse;
 import com.ibotta.anagram.model.AddWordsRequest;
+import com.ibotta.anagram.model.AddWordsResponse;
 import com.ibotta.anagram.model.AnagramsFoundResponse;
 import com.ibotta.anagram.model.builder.AnagramsFoundResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.util.Arrays.asList;
 
 @Service
 public class AnagramService {
@@ -67,15 +65,17 @@ public class AnagramService {
         return response;
     }
 
-    public AnagramsFoundResponse deleteWord(String word) {
-        AnagramsFoundResponse response = new AnagramsFoundResponse(asList("hi"));
+    public ResponseEntity deleteWord(String word) {
 
-        return response;
+        dictionary.remove(word);
+
+        return ResponseEntity.noContent().build();
     }
 
-    public AnagramsFoundResponse deleteAll(String word) {
-        AnagramsFoundResponse response = new AnagramsFoundResponse(asList("hi"));
+    public ResponseEntity deleteAll() {
 
-        return response;
+        dictionary.removeAll(dictionary);
+
+        return ResponseEntity.noContent().build();
     }
 }

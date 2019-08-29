@@ -69,7 +69,6 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_deleting_all_words
-    pend # delete me
 
     res = @client.delete('/words.json')
 
@@ -86,7 +85,6 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_deleting_all_words_multiple_times
-    pend # delete me
 
     3.times do
       res = @client.delete('/words.json')
@@ -105,7 +103,6 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_deleting_single_word
-    pend # delete me
 
     # delete the word
     res = @client.delete('/words/dear.json')
@@ -119,6 +116,6 @@ class TestCases < Test::Unit::TestCase
 
     body = JSON.parse(res.body)
 
-    assert_equal(['dare'], body['anagrams'])
+    assert_equal(['ared', 'daer', 'dare'], body['anagrams'])
   end
 end

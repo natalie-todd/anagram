@@ -28,7 +28,6 @@ public class Controller {
     @RequestMapping(value = "/words.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
     public ResponseEntity<AddWordsResponse> addWords(@Valid @RequestBody AddWordsRequest request) {
     ResponseEntity response = anagramService.addWords(request);
-        System.out.println("----->"+response);
     return response;
     }
     @CrossOrigin(origins = "*")
@@ -36,29 +35,26 @@ public class Controller {
     public ResponseEntity<AnagramsFoundResponse> findAnagrams(
             @PathVariable("word") String word,
             @RequestParam(required = false) Integer limit
-
     ) {
         AnagramsFoundResponse response = anagramService.findAnagrams(word, limit);
 
         return ResponseEntity.ok(response);
     }
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/words/:word.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.DELETE)
-    public ResponseEntity<AnagramsFoundResponse> deleteWord(
-            @NotEmpty @RequestHeader(value = "word") String word
+    @RequestMapping(value = "/words/{word}.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteWord(
+            @PathVariable("word") String word
     ) {
-        AnagramsFoundResponse response = anagramService.deleteWord(word);
+        ResponseEntity<Void> response = anagramService.deleteWord(word);
 
-        return ResponseEntity.ok(response);
+        return response;
     }
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/words.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.DELETE)
-    public ResponseEntity<AnagramsFoundResponse> deleteAll(
-            @NotEmpty @RequestHeader(value = "word") String word
-    ) {
-        AnagramsFoundResponse response = anagramService.deleteWord(word);
+    public ResponseEntity<Void> deleteAll() {
+        ResponseEntity<Void> response = anagramService.deleteAll();
 
-        return ResponseEntity.ok(response);
+        return response;
     }
 }
 
