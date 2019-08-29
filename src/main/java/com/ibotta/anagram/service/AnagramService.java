@@ -34,7 +34,7 @@ public class AnagramService {
         return ResponseEntity.created(null).build();
     }
 
-    public String alphabetizeString(String word) {
+    private String alphabetizeString(String word) {
         char alphabetizedWordArray[] = word.toCharArray();
         Arrays.sort(alphabetizedWordArray);
         return new String(alphabetizedWordArray);
