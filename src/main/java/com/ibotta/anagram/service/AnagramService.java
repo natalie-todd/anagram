@@ -1,7 +1,6 @@
 package com.ibotta.anagram.service;
 
 import com.ibotta.anagram.model.AddWordsRequest;
-import com.ibotta.anagram.model.AddWordsResponse;
 import com.ibotta.anagram.model.AnagramsFoundResponse;
 import com.ibotta.anagram.model.builder.AnagramsFoundResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +22,13 @@ public class AnagramService {
         this.dictionary = dictionary;
     }
 
-    public ResponseEntity<AddWordsResponse> addWords(AddWordsRequest request) {
+    public ResponseEntity addWords(AddWordsRequest request) {
         List<String> wordsToAdd = request.getWords();
         wordsToAdd.stream()
                 .forEach(word -> {
                     if (!dictionary.contains(word))
                         dictionary.add(word);
                 });
-        System.out.println("dictionary = " + dictionary);
         return ResponseEntity.created(null).build();
     }
 
