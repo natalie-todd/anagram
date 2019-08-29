@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,7 +29,7 @@ public class AnagramService {
         List<String> wordsToAdd = request.getWords();
         wordsToAdd.stream()
                 .forEach(word -> {
-                    if(!dictionary.contains(word))
+                    if (!dictionary.contains(word))
                         dictionary.add(word);
                 });
         System.out.println("dictionary = " + dictionary);
@@ -41,15 +42,27 @@ public class AnagramService {
         return new String(alphabetizedWordArray);
     }
 
-    public AnagramsFoundResponse findAnagrams(String word) {
+    public AnagramsFoundResponse findAnagrams(String word, Integer limit) {
         String alphabetizedWord = alphabetizeString(word);
 
         List<String> anagrams = dictionary.stream()
                 .filter(entry -> alphabetizeString(entry).equalsIgnoreCase(alphabetizedWord))
+                .filter(entry -> !word.equalsIgnoreCase(entry))
                 .collect(Collectors.toList());
 
+        ArrayList<String> myList = new ArrayList<String>();
+        if (limit != null) {
+            int i = 0;
+            do {
+                i++;
+                myList.add(anagrams.get(i));
+            } while (i < limit);
+        } else {
+            myList = new ArrayList<String>(anagrams);
+        }
+
         AnagramsFoundResponse response = AnagramsFoundResponseBuilder.anagramsFoundResponseBuilder()
-                .anagrams(anagrams).build();
+                .anagrams(myList).build();
 
         return response;
     }
@@ -59,6 +72,7 @@ public class AnagramService {
 
         return response;
     }
+
     public AnagramsFoundResponse deleteAll(String word) {
         AnagramsFoundResponse response = new AnagramsFoundResponse(asList("hi"));
 

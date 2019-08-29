@@ -1,6 +1,8 @@
 Ibotta Dev Project
 =========
 
+#####Clarifications#####
+#On line 45 of anagram_test.rb I added ared and daer as they are present in dictionary.txt on lines 12956 and 48221 
 
 # The Project
 

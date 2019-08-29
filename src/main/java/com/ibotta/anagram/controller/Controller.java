@@ -34,9 +34,11 @@ public class Controller {
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/anagrams/{word}.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
     public ResponseEntity<AnagramsFoundResponse> findAnagrams(
-            @PathVariable("word") String word
+            @PathVariable("word") String word,
+            @RequestParam(required = false) Integer limit
+
     ) {
-        AnagramsFoundResponse response = anagramService.findAnagrams(word);
+        AnagramsFoundResponse response = anagramService.findAnagrams(word, limit);
 
         return ResponseEntity.ok(response);
     }
