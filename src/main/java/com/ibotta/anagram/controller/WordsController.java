@@ -14,11 +14,11 @@ import javax.validation.Valid;
 
 @org.springframework.stereotype.Controller
 @Validated
-public class Controller {
+public class WordsController {
     private AnagramService anagramService;
 
     @Autowired
-    public Controller(
+    public WordsController(
             AnagramService anagramService
     ) {
         this.anagramService = anagramService;
