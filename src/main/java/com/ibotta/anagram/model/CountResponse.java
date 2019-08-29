@@ -12,7 +12,6 @@ import java.util.Objects;
 @JsonPropertyOrder({"corpusTotal"})
 public class CountResponse {
     @Valid
-    @NotNull
     private Integer corpusTotal;
 
     @JsonCreator

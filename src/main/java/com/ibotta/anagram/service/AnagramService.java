@@ -82,6 +82,7 @@ public class AnagramService {
     }
 
     public CountResponse countWords() {
+
         int length = dictionary.size();
 
         CountResponse response = CountResponseBuilder.countResponseBuilder().corpusTotal(length).build();
