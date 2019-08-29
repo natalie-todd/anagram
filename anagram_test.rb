@@ -29,7 +29,8 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_fetching_anagrams
-    pend # delete me
+    # pend
+    # delete me
 
     # fetch anagrams
     res = @client.get('/anagrams/read.json')

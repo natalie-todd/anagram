@@ -3,11 +3,14 @@ package com.ibotta.anagram.service;
 import com.ibotta.anagram.model.AddWordsResponse;
 import com.ibotta.anagram.model.AddWordsRequest;
 import com.ibotta.anagram.model.AnagramsFoundResponse;
+import com.ibotta.anagram.model.builder.AnagramsFoundResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 
@@ -32,8 +35,21 @@ public class AnagramService {
         return ResponseEntity.created(null).build();
     }
 
+    public String alphabetizeString(String word) {
+        char alphabetizedWordArray[] = word.toCharArray();
+        Arrays.sort(alphabetizedWordArray);
+        return new String(alphabetizedWordArray);
+    }
+
     public AnagramsFoundResponse findAnagrams(String word) {
-        AnagramsFoundResponse response = new AnagramsFoundResponse(asList("hi"));
+        String alphabetizedWord = alphabetizeString(word);
+
+        List<String> anagrams = dictionary.stream()
+                .filter(entry -> alphabetizeString(entry) == alphabetizedWord)
+                .collect(Collectors.toList());
+
+        AnagramsFoundResponse response = AnagramsFoundResponseBuilder.anagramsFoundResponseBuilder()
+                .anagrams(anagrams).build();
 
         return response;
     }
