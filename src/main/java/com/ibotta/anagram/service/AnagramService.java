@@ -45,7 +45,7 @@ public class AnagramService {
         String alphabetizedWord = alphabetizeString(word);
 
         List<String> anagrams = dictionary.stream()
-                .filter(entry -> alphabetizeString(entry) == alphabetizedWord)
+                .filter(entry -> alphabetizeString(entry).equalsIgnoreCase(alphabetizedWord))
                 .collect(Collectors.toList());
 
         AnagramsFoundResponse response = AnagramsFoundResponseBuilder.anagramsFoundResponseBuilder()
