@@ -47,6 +47,7 @@ class TestCases < Test::Unit::TestCase
   def test_fetching_anagrams_with_limit
 
     # fetch anagrams with limit
+    # res = @client.get('/anagrams/read.json?limit=1')
     res = @client.get('/anagrams/read.json', 'limit=1')
 
     assert_equal('200', res.code, "Unexpected response code")
