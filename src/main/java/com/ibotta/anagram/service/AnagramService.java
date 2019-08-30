@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,9 +76,7 @@ public class AnagramService {
     }
 
     public ResponseEntity deleteAll() {
-
-        dictionary.removeAll(dictionary);
-
+        dictionary.clear();
         return ResponseEntity.noContent().build();
     }
 
