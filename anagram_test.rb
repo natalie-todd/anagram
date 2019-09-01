@@ -23,7 +23,7 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_adding_words
-    res = @client.post('/words.json', nil, {"words" => ["read", "dear", "dare"] })
+      res = @client.post('/words.json', nil, {"words" => ["read", "dear", "dare"] })
 
     assert_equal('201', res.code, "Unexpected response code")
   end

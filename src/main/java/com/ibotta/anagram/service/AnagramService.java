@@ -1,5 +1,6 @@
 package com.ibotta.anagram.service;
 
+import com.ibotta.anagram.controller.AddWordsResponse;
 import com.ibotta.anagram.model.AddWordsRequest;
 import com.ibotta.anagram.model.AnagramsFoundResponse;
 import com.ibotta.anagram.model.CountResponse;
@@ -24,7 +25,7 @@ public class AnagramService {
         this.dictionary = dictionary;
     }
 
-    public ResponseEntity addWords(AddWordsRequest request) {
+    public ResponseEntity<AddWordsResponse> addWords(AddWordsRequest request) {
         List<String> wordsToAdd = request.getWords();
         wordsToAdd.stream()
                 .forEach(word -> {
@@ -34,57 +35,57 @@ public class AnagramService {
         return ResponseEntity.created(null).build();
     }
 
-    private String alphabetizeString(String word) {
-        char alphabetizedWordArray[] = word.toCharArray();
-        Arrays.sort(alphabetizedWordArray);
-        return new String(alphabetizedWordArray);
-    }
-
-    public AnagramsFoundResponse findAnagrams(String word, Integer limit) {
-        String alphabetizedWord = alphabetizeString(word);
-
-        List<String> anagrams = dictionary.stream()
-                .filter(entry -> alphabetizeString(entry).equalsIgnoreCase(alphabetizedWord))
-                .filter(entry -> !word.equalsIgnoreCase(entry))
-                .collect(Collectors.toList());
-
-        ArrayList<String> myList = new ArrayList<String>();
-        if ((limit != null) && (dictionary.size() > 0)) {
-            int i = 0;
-            do {
-                i++;
-                myList.add(anagrams.get(i));
-            } while (i < limit);
-        } else if ((limit == null) && (dictionary.size() > 0)) {
-            myList = new ArrayList<String>(anagrams);
-        } else {
-            myList = new ArrayList<String>();
-        }
-
-        AnagramsFoundResponse response = AnagramsFoundResponseBuilder.anagramsFoundResponseBuilder()
-                .anagrams(myList).build();
-
-        return response;
-    }
-
-    public ResponseEntity deleteWord(String word) {
-
-        dictionary.remove(word);
-
-        return ResponseEntity.noContent().build();
-    }
-
-    public ResponseEntity deleteAll() {
-        dictionary.clear();
-        return ResponseEntity.noContent().build();
-    }
-
-    public CountResponse countWords() {
-
-        int length = dictionary.size();
-
-        CountResponse response = CountResponseBuilder.countResponseBuilder().corpusTotal(length).build();
-
-        return response;
-    }
+//    private String alphabetizeString(String word) {
+//        char alphabetizedWordArray[] = word.toCharArray();
+//        Arrays.sort(alphabetizedWordArray);
+//        return new String(alphabetizedWordArray);
+//    }
+//
+//    public AnagramsFoundResponse findAnagrams(String word, Integer limit) {
+//        String alphabetizedWord = alphabetizeString(word);
+//
+//        List<String> anagrams = dictionary.stream()
+//                .filter(entry -> alphabetizeString(entry).equalsIgnoreCase(alphabetizedWord))
+//                .filter(entry -> !word.equalsIgnoreCase(entry))
+//                .collect(Collectors.toList());
+//
+//        ArrayList<String> myList = new ArrayList<String>();
+//        if ((limit != null) && (dictionary.size() > 0)) {
+//            int i = 0;
+//            do {
+//                i++;
+//                myList.add(anagrams.get(i));
+//            } while (i < limit);
+//        } else if ((limit == null) && (dictionary.size() > 0)) {
+//            myList = new ArrayList<String>(anagrams);
+//        } else {
+//            myList = new ArrayList<String>();
+//        }
+//
+//        AnagramsFoundResponse response = AnagramsFoundResponseBuilder.anagramsFoundResponseBuilder()
+//                .anagrams(myList).build();
+//
+//        return response;
+//    }
+//
+//    public ResponseEntity deleteWord(String word) {
+//
+//        dictionary.remove(word);
+//
+//        return ResponseEntity.noContent().build();
+//    }
+//
+//    public ResponseEntity deleteAll() {
+//        dictionary.clear();
+//        return ResponseEntity.noContent().build();
+//    }
+//
+//    public CountResponse countWords() {
+//
+//        int length = dictionary.size();
+//
+//        CountResponse response = CountResponseBuilder.countResponseBuilder().corpusTotal(length).build();
+//
+//        return response;
+//    }
 }
