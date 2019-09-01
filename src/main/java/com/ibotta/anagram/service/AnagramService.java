@@ -6,6 +6,7 @@ import com.ibotta.anagram.model.AnagramsFoundResponse;
 import com.ibotta.anagram.model.CountResponse;
 import com.ibotta.anagram.model.builder.AnagramsFoundResponseBuilder;
 import com.ibotta.anagram.model.builder.CountResponseBuilder;
+import com.ibotta.anagram.utilities.AnagramHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.ibotta.anagram.utilities.AnagramHelper.limitIt;
+import static java.util.Arrays.asList;
 
 @Service
 public class AnagramService {
@@ -35,38 +39,26 @@ public class AnagramService {
         return ResponseEntity.created(null).build();
     }
 
-//    private String alphabetizeString(String word) {
-//        char alphabetizedWordArray[] = word.toCharArray();
-//        Arrays.sort(alphabetizedWordArray);
-//        return new String(alphabetizedWordArray);
-//    }
-//
-//    public AnagramsFoundResponse findAnagrams(String word, Integer limit) {
-//        String alphabetizedWord = alphabetizeString(word);
-//
-//        List<String> anagrams = dictionary.stream()
-//                .filter(entry -> alphabetizeString(entry).equalsIgnoreCase(alphabetizedWord))
-//                .filter(entry -> !word.equalsIgnoreCase(entry))
-//                .collect(Collectors.toList());
-//
-//        ArrayList<String> myList = new ArrayList<String>();
-//        if ((limit != null) && (dictionary.size() > 0)) {
-//            int i = 0;
-//            do {
-//                i++;
-//                myList.add(anagrams.get(i));
-//            } while (i < limit);
-//        } else if ((limit == null) && (dictionary.size() > 0)) {
-//            myList = new ArrayList<String>(anagrams);
-//        } else {
-//            myList = new ArrayList<String>();
-//        }
-//
-//        AnagramsFoundResponse response = AnagramsFoundResponseBuilder.anagramsFoundResponseBuilder()
-//                .anagrams(myList).build();
-//
-//        return response;
-//    }
+    private String alphabetizeString(String word) {
+        char alphabetizedWordArray[] = word.toCharArray();
+        Arrays.sort(alphabetizedWordArray);
+        return new String(alphabetizedWordArray);
+    }
+
+    public AnagramsFoundResponse findAnagrams(String word, Integer limit) {
+        String alphabetizedWord = alphabetizeString(word);
+
+        List<String> anagrams = dictionary.stream()
+                .filter(entry -> alphabetizeString(entry).equalsIgnoreCase(alphabetizedWord))
+                .filter(entry -> !word.equalsIgnoreCase(entry))
+                .collect(Collectors.toList());
+
+        AnagramsFoundResponse response = AnagramsFoundResponseBuilder.anagramsFoundResponseBuilder()
+                .anagrams(limitIt(anagrams, limit)).build();
+
+        return response;
+    }
+
 //
 //    public ResponseEntity deleteWord(String word) {
 //
