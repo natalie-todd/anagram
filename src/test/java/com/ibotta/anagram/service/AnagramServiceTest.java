@@ -1,14 +1,21 @@
 package com.ibotta.anagram.service;
 
+import com.ibotta.anagram.controller.AddWordsResponse;
+import com.ibotta.anagram.model.AddWordsRequest;
 import com.ibotta.anagram.model.AnagramsFoundResponse;
+import com.ibotta.anagram.model.builder.AddWordsRequestBuilder;
 import com.ibotta.anagram.model.builder.AnagramsFoundResponseBuilder;
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.stubbing.OngoingStubbing;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -23,12 +30,26 @@ public class AnagramServiceTest {
 
     private List<String> dictionary = new ArrayList<>();
 
-//write a test for the post endpoint checking to see if 200 is returned
-
     @Before
     public void setUp() {
 
         anagramService = new AnagramService(asList("read", "dare", "dear"));
+    }
+
+    @Test
+    public void addWords_addsNewWordsToDictionary_fromRequest() {
+        AddWordsRequest request = AddWordsRequestBuilder.addWordsRequestBuilder()
+                .words(asList("dare", "charles")).build();
+
+        List<String> myDictionary = new ArrayList<String>(){{add("read");add("dare");add("dear");}};
+
+        anagramService = new AnagramService(myDictionary);
+
+        ResponseEntity<AddWordsResponse> addWordsResponseResponseEntity = anagramService.addWords(request);
+
+        List<String> expectedDictionary = asList("read", "dare", "dear", "charles");
+
+        assertThat(myDictionary, equalTo(expectedDictionary));
     }
 
     @Test
