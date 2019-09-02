@@ -42,24 +42,24 @@ public class WordsController {
 
         return ResponseEntity.ok(response);
     }
-//
-//    @CrossOrigin(origins = "*")
-//    @RequestMapping(value = "/words/{word}.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.DELETE)
-//    public ResponseEntity<Void> deleteWord(
-//            @PathVariable("word") String word
-//    ) {
-//        ResponseEntity<Void> response = anagramService.deleteWord(word);
-//
-//        return response;
-//    }
-//
-//    @CrossOrigin(origins = "*")
-//    @RequestMapping(value = "/words.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.DELETE)
-//    public ResponseEntity<Void> deleteAll() {
-//        ResponseEntity<Void> response = anagramService.deleteAll();
-//
-//        return response;
-//    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/words/{word}.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteWord(
+            @PathVariable("word") String word
+    ) {
+        ResponseEntity<Void> response = anagramService.deleteWord(word);
+
+        return response;
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/words.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteAll() {
+        ResponseEntity<Void> response = anagramService.deleteAll();
+
+        return response;
+    }
 //
 //    @CrossOrigin(origins = "*")
 //    @RequestMapping(value = "/count.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)

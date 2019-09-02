@@ -5,23 +5,18 @@ import com.ibotta.anagram.model.AddWordsRequest;
 import com.ibotta.anagram.model.AnagramsFoundResponse;
 import com.ibotta.anagram.model.builder.AddWordsRequestBuilder;
 import com.ibotta.anagram.model.builder.AnagramsFoundResponseBuilder;
-import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AnagramServiceTest {
@@ -85,4 +80,31 @@ public class AnagramServiceTest {
         assertThat(response, equalTo(expected));
     }
 
+    @Test
+    public void deleteWord_removesWordFromDictionary() {
+
+        List<String> myDictionary = new ArrayList<String>(){{add("read");add("dare");add("dear");}};
+
+        anagramService = new AnagramService(myDictionary);
+
+        ResponseEntity<AddWordsResponse> addWordsResponseResponseEntity = anagramService.deleteWord("read");
+
+        List<String> expectedDictionary = asList("dare", "dear");
+
+        assertThat(myDictionary, equalTo(expectedDictionary));
+    }
+    //TODO: what should happen when you try to delete a word that is not there
+    @Test
+    public void deleteAll_emptiesDictionary() {
+
+        List<String> myDictionary = new ArrayList<String>(){{add("read");add("dare");add("dear");}};
+
+        anagramService = new AnagramService(myDictionary);
+
+        ResponseEntity<AddWordsResponse> addWordsResponseResponseEntity = anagramService.deleteAll();
+
+        List<String> expectedDictionary = asList();
+
+        assertThat(myDictionary, equalTo(expectedDictionary));
+    }
 }

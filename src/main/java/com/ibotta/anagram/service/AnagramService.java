@@ -59,25 +59,25 @@ public class AnagramService {
         return response;
     }
 
+
+    public ResponseEntity deleteWord(String word) {
+
+        dictionary.remove(word);
+
+        return ResponseEntity.noContent().build();
+    }
 //
-//    public ResponseEntity deleteWord(String word) {
-//
-//        dictionary.remove(word);
-//
-//        return ResponseEntity.noContent().build();
-//    }
-//
-//    public ResponseEntity deleteAll() {
-//        dictionary.clear();
-//        return ResponseEntity.noContent().build();
-//    }
-//
-//    public CountResponse countWords() {
-//
-//        int length = dictionary.size();
-//
-//        CountResponse response = CountResponseBuilder.countResponseBuilder().corpusTotal(length).build();
-//
-//        return response;
-//    }
+    public ResponseEntity deleteAll() {
+        dictionary.clear();
+        return ResponseEntity.noContent().build();
+    }
+
+    public CountResponse countWords() {
+
+        int length = dictionary.size();
+
+        CountResponse response = CountResponseBuilder.countResponseBuilder().corpusTotal(length).build();
+
+        return response;
+    }
 }
