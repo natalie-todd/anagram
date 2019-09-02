@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -113,15 +114,20 @@ public class AnagramServiceTest {
     @Test
     public void countWords_returnsDictionaryTotal() {
 
-        List<String> myDictionary = new ArrayList<String>(){{add("read");add("dare");add("dear");}};
+        List<String> myDictionary = new ArrayList<String>(){{add("a");add("bee");add("camera");add("dog");add("elephant");}};
 
         anagramService = new AnagramService(myDictionary);
 
         CountResponse actualResponse = anagramService.countWords();
 
-        List<String> expectedDictionary = asList("read", "dare", "dear");
+        List<String> expectedDictionary = asList("a", "bee", "camera", "dog", "elephant");
 
-        CountResponse expectedResponse = CountResponseBuilder.countResponseBuilder().corpusTotal(expectedDictionary.size()).build();
+        CountResponse expectedResponse = CountResponseBuilder.countResponseBuilder()
+                .corpusTotal(expectedDictionary.size())
+                .min(1)
+                .max(8)
+                .median(3)
+                .average(4).build();
 
         assertThat(actualResponse, equalTo(expectedResponse));
     }

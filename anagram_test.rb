@@ -128,5 +128,16 @@ class TestCases < Test::Unit::TestCase
     assert_equal('200', res.code, "Unexpected response code")
     assert_not_nil(res.body)
 
+    body = JSON.parse(res.body)
+
+    expected_count = {
+        corpusTotal: 3,
+        min: 4,
+        max: 4,
+        median: 4,
+        average: 4
+    }
+    assert_equal(expected_count, body['corpusTotal', 'min', 'max', 'median', 'average'].sort)
+
   end
 end

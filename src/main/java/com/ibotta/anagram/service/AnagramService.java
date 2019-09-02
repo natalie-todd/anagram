@@ -6,18 +6,19 @@ import com.ibotta.anagram.model.AnagramsFoundResponse;
 import com.ibotta.anagram.model.CountResponse;
 import com.ibotta.anagram.model.builder.AnagramsFoundResponseBuilder;
 import com.ibotta.anagram.model.builder.CountResponseBuilder;
-import com.ibotta.anagram.utilities.AnagramHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static com.ibotta.anagram.utilities.AnagramHelper.limitIt;
-import static java.util.Arrays.asList;
 
 @Service
 public class AnagramService {
@@ -76,7 +77,24 @@ public class AnagramService {
 
         int length = dictionary.size();
 
-        CountResponse response = CountResponseBuilder.countResponseBuilder().corpusTotal(length).build();
+        Integer min = dictionary.stream()
+                .min((str1, str2) -> Character.compare(str1.charAt(str1.length() - 1), str2.charAt(str2.length() - 1)))
+                .map(str -> str.length()).orElse(0);
+
+        Integer max = dictionary.stream()
+                .max((str1, str2) -> Character.compare(str1.charAt(str1.length() - 1), str2.charAt(str2.length() - 1)))
+                .map(str -> str.length()).orElse(0);
+
+        
+
+        Integer average = dictionary.stream().map(str -> str.length()).reduce((x, y) -> x + y).orElse(0) / length;
+
+        CountResponse response = CountResponseBuilder.countResponseBuilder()
+                .corpusTotal(length)
+                .min(min)
+                .max(max)
+                .median(1)
+                .average(average).build();
 
         return response;
     }

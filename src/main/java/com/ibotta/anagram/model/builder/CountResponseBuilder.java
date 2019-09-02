@@ -1,12 +1,13 @@
 package com.ibotta.anagram.model.builder;
 
-import com.ibotta.anagram.model.AnagramsFoundResponse;
 import com.ibotta.anagram.model.CountResponse;
-
-import java.util.List;
 
 public final class CountResponseBuilder {
     private Integer corpusTotal;
+    private Integer min;
+    private Integer max;
+    private Integer median;
+    private Integer average;
 
     public CountResponseBuilder() {}
 
@@ -17,7 +18,32 @@ public final class CountResponseBuilder {
         return this;
     }
 
+    public CountResponseBuilder min(Integer min) {
+        this.min = min;
+        return this;
+    }
+
+    public CountResponseBuilder max(Integer max) {
+        this.max = max;
+        return this;
+    }
+
+    public CountResponseBuilder median(Integer median) {
+        this.median = median;
+        return this;
+    }
+
+    public CountResponseBuilder average(Integer average) {
+        this.average = average;
+        return this;
+    }
+
     public CountResponse build() {
-        return new CountResponse(corpusTotal);
+        return new CountResponse(corpusTotal,
+                min,
+                max,
+                median,
+                average
+        );
     }
 }
