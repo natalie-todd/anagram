@@ -29,7 +29,7 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_fetching_anagrams
-  pend
+  # pend
     # fetch anagrams
     res = @client.get('/anagrams/read.json')
 
@@ -45,7 +45,7 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_fetching_anagrams_with_limit
-    pend
+    # pend
     # fetch anagrams with limit
     # res = @client.get('/anagrams/read.json?limit=1')
     res = @client.get('/anagrams/read.json', 'limit=1')
@@ -58,7 +58,7 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_fetch_for_word_with_no_anagrams
-    pend
+    # pend
     # fetch anagrams with limit
     res = @client.get('/anagrams/zyxwv.json')
 
@@ -70,7 +70,7 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_deleting_all_words
-    pend
+    # pend
     res = @client.delete('/words.json')
 
     assert_equal('204', res.code, "Unexpected response code")
@@ -86,7 +86,7 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_deleting_all_words_multiple_times
-    pend
+    # pend
     3.times do
       res = @client.delete('/words.json')
 
@@ -104,7 +104,7 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_deleting_single_word
-    pend
+    # pend
     # delete the word
     res = @client.delete('/words/dear.json')
 
@@ -121,7 +121,7 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_fetching_count
-    pend
+    # pend
     # fetch count
     res = @client.get('/count.json')
 

@@ -60,14 +60,14 @@ public class WordsController {
 
         return response;
     }
-//
-//    @CrossOrigin(origins = "*")
-//    @RequestMapping(value = "/count.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
-//    public ResponseEntity<CountResponse> findAnagrams(
-//    ) {
-//        CountResponse response = anagramService.countWords();
-//
-//        return ResponseEntity.ok(response);
-//    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/count.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
+    public ResponseEntity<CountResponse> findAnagrams(
+    ) {
+        CountResponse response = anagramService.countWords();
+
+        return ResponseEntity.ok(response);
+    }
 }
 

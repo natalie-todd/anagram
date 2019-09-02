@@ -3,8 +3,10 @@ package com.ibotta.anagram.service;
 import com.ibotta.anagram.controller.AddWordsResponse;
 import com.ibotta.anagram.model.AddWordsRequest;
 import com.ibotta.anagram.model.AnagramsFoundResponse;
+import com.ibotta.anagram.model.CountResponse;
 import com.ibotta.anagram.model.builder.AddWordsRequestBuilder;
 import com.ibotta.anagram.model.builder.AnagramsFoundResponseBuilder;
+import com.ibotta.anagram.model.builder.CountResponseBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -106,5 +108,21 @@ public class AnagramServiceTest {
         List<String> expectedDictionary = asList();
 
         assertThat(myDictionary, equalTo(expectedDictionary));
+    }
+
+    @Test
+    public void countWords_returnsDictionaryTotal() {
+
+        List<String> myDictionary = new ArrayList<String>(){{add("read");add("dare");add("dear");}};
+
+        anagramService = new AnagramService(myDictionary);
+
+        CountResponse actualResponse = anagramService.countWords();
+
+        List<String> expectedDictionary = asList("read", "dare", "dear");
+
+        CountResponse expectedResponse = CountResponseBuilder.countResponseBuilder().corpusTotal(expectedDictionary.size()).build();
+
+        assertThat(actualResponse, equalTo(expectedResponse));
     }
 }
