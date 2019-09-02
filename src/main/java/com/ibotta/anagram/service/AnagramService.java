@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -73,27 +70,44 @@ public class AnagramService {
         return ResponseEntity.noContent().build();
     }
 
+    private Integer median(List<String> clone) {
+        Integer median;
+        Integer index;
+        List<Integer> sorted = clone.stream().map(str -> str.length()).sorted().collect(Collectors.toList());
+        Integer length = sorted.size();
+
+        if (length % 2 == 0) {
+            index = (length / 2) + (length - 1) / 2;
+            median = clone.get(index).length();
+        } else {
+            index = (length - 1) / 2;
+            median = sorted.get(index);
+        }
+        return median;
+    }
+
     public CountResponse countWords() {
 
         int length = dictionary.size();
+        List<String> clone = new ArrayList<>(dictionary);
 
-        Integer min = dictionary.stream()
+        Integer min = clone.stream()
                 .min((str1, str2) -> Character.compare(str1.charAt(str1.length() - 1), str2.charAt(str2.length() - 1)))
                 .map(str -> str.length()).orElse(0);
 
-        Integer max = dictionary.stream()
+        Integer max = clone.stream()
                 .max((str1, str2) -> Character.compare(str1.charAt(str1.length() - 1), str2.charAt(str2.length() - 1)))
                 .map(str -> str.length()).orElse(0);
 
-        
+        Integer sum = clone.stream().sorted().map(str -> str.length()).reduce((x, y) -> x + y).orElse(0);
 
-        Integer average = dictionary.stream().map(str -> str.length()).reduce((x, y) -> x + y).orElse(0) / length;
+        Integer average = sum / length;
 
         CountResponse response = CountResponseBuilder.countResponseBuilder()
                 .corpusTotal(length)
                 .min(min)
                 .max(max)
-                .median(1)
+                .median(median(clone))
                 .average(average).build();
 
         return response;
