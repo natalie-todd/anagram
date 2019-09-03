@@ -9,7 +9,7 @@ public class GroupResponseBuilder {
 
     public static GroupResponseBuilder groupResponseBuilder() { return new GroupResponseBuilder(); }
 
-    public GroupResponseBuilder areAnagrams(boolean areAnagrams) {
+    public GroupResponseBuilder areAnagrams(Boolean areAnagrams) {
         this.areAnagrams = areAnagrams;
         return this;
     }
