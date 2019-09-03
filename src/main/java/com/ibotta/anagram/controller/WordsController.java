@@ -69,5 +69,15 @@ public class WordsController {
 
         return ResponseEntity.ok(response);
     }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/anagrams/{word}.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteAnagrams(
+            @PathVariable("word") String word
+    ) {
+        ResponseEntity<Void> response = anagramService.deleteAnagrams(word);
+
+        return response;
+    }
 }
 

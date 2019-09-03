@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -90,7 +89,7 @@ public class AnagramServiceTest {
 
         anagramService = new AnagramService(myDictionary);
 
-        ResponseEntity<AddWordsResponse> addWordsResponseResponseEntity = anagramService.deleteWord("read");
+        ResponseEntity<Void> response = anagramService.deleteWord("read");
 
         List<String> expectedDictionary = asList("dare", "dear");
 
@@ -104,7 +103,7 @@ public class AnagramServiceTest {
 
         anagramService = new AnagramService(myDictionary);
 
-        ResponseEntity<AddWordsResponse> addWordsResponseResponseEntity = anagramService.deleteAll();
+        ResponseEntity<Void> response = anagramService.deleteAll();
 
         List<String> expectedDictionary = asList();
 
@@ -130,5 +129,19 @@ public class AnagramServiceTest {
                 .average(4).build();
 
         assertThat(actualResponse, equalTo(expectedResponse));
+    }
+
+    @Test
+    public void deleteAnagrams_removesWordAndItsAnagramsFromDictionary() {
+
+        List<String> myDictionary = new ArrayList<String>(){{add("read");add("dare");add("dear");}};
+
+        anagramService = new AnagramService(myDictionary);
+
+        ResponseEntity<Void> response = anagramService.deleteAnagrams("read");
+
+        List<String> expectedDictionary = asList();
+
+        assertThat(myDictionary, equalTo(expectedDictionary));
     }
 }

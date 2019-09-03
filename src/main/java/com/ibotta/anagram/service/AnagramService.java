@@ -107,4 +107,16 @@ public class AnagramService {
 
         return response;
     }
+
+    public ResponseEntity deleteAnagrams(String word) {
+        String alphabetizedWord = alphabetizeString(word);
+
+        List<String> wordAndAnagrams = dictionary.stream()
+                .filter(entry -> alphabetizeString(entry).equalsIgnoreCase(alphabetizedWord))
+                .collect(Collectors.toList());
+
+        dictionary.removeAll(wordAndAnagrams);
+
+        return ResponseEntity.noContent().build();
+    }
 }
