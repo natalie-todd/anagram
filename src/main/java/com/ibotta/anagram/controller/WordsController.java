@@ -135,7 +135,7 @@ public class WordsController {
             @ApiResponse(code = 400, message = "Invalid anagram request")
     })
     public ResponseEntity<GroupResponse> evaluateWords(
-            @RequestParam List<String> words
+            @RequestParam("words") List<String> words
     ) {
         GroupResponse response = anagramService.evaluateWords(words);
 

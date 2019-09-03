@@ -3,7 +3,7 @@ package com.ibotta.anagram.model.builder;
 import com.ibotta.anagram.model.GroupResponse;
 
 public class GroupResponseBuilder {
-    private boolean areAnagrams;
+    private Boolean areAnagrams;
 
     public GroupResponseBuilder() {}
 

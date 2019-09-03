@@ -138,7 +138,7 @@ class TestCases < Test::Unit::TestCase
 
   def test_fetching_anagramGroup_returns_true
 
-    res = @client.get('/anagramGroup.json', 'words=read, dare, dear')
+    res = @client.get('/anagramGroup.json', 'words=read,dare,dear')
 
     assert_equal('200', res.code, "Unexpected response code")
     assert_not_nil(res.body)

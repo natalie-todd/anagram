@@ -3,21 +3,17 @@ package com.ibotta.anagram.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class GroupResponse {
-    @Valid
-    @NotNull
-    private boolean areAnagrams;
+    private Boolean areAnagrams;
 
     @JsonCreator
-    public GroupResponse(@JsonProperty boolean areAnagrams) {
+    public GroupResponse(@JsonProperty("areAnagrams") Boolean areAnagrams) {
         this.areAnagrams = areAnagrams;
     }
 
-    public boolean areAnagrams() {
+    public Boolean getAreAnagrams() {
         return areAnagrams;
     }
 
