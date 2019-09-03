@@ -3,6 +3,7 @@ package com.ibotta.anagram.controller;
 import com.ibotta.anagram.model.AddWordsRequest;
 import com.ibotta.anagram.model.AnagramsFoundResponse;
 import com.ibotta.anagram.model.CountResponse;
+import com.ibotta.anagram.model.GroupResponse;
 import com.ibotta.anagram.service.AnagramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @org.springframework.stereotype.Controller
 @Validated
@@ -66,6 +68,16 @@ public class WordsController {
     public ResponseEntity<CountResponse> findAnagrams(
     ) {
         CountResponse response = anagramService.countWords();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/anagramGroup.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
+    public ResponseEntity<GroupResponse> evaluateWords(
+            @RequestParam List<String> words
+    ) {
+        GroupResponse response = anagramService.evaluateWords(words);
 
         return ResponseEntity.ok(response);
     }

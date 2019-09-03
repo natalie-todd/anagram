@@ -4,8 +4,9 @@ import com.ibotta.anagram.controller.AddWordsResponse;
 import com.ibotta.anagram.model.AddWordsRequest;
 import com.ibotta.anagram.model.AnagramsFoundResponse;
 import com.ibotta.anagram.model.CountResponse;
+import com.ibotta.anagram.model.GroupResponse;
 import com.ibotta.anagram.model.builder.AnagramsFoundResponseBuilder;
-import com.ibotta.anagram.model.builder.CountResponseBuilder;
+import com.ibotta.anagram.model.builder.GroupResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.ibotta.anagram.model.builder.CountResponseBuilder.countResponseBuilder;
 import static com.ibotta.anagram.utilities.AnagramHelper.limitIt;
 
 @Service
@@ -94,16 +96,36 @@ public class AnagramService {
 
         Integer max = clone.get(clone.size() - 1);
 
-        Integer sum = clone.stream().sorted().map(str -> str).reduce((x, y) -> x + y).orElse(0);
+        Integer sum = clone.stream().sorted().reduce((x, y) -> x + y).orElse(0);
 
         Integer average = sum / length;
 
-        CountResponse response = CountResponseBuilder.countResponseBuilder()
+        CountResponse response = countResponseBuilder()
                 .corpusTotal(length)
                 .min(min)
                 .max(max)
                 .median(median(clone))
                 .average(average).build();
+
+        return response;
+    }
+
+    public GroupResponse evaluateWords(List<String> words) {
+        String alphabetizedWord = alphabetizeString(words.get(0));
+
+        List<String> matchingWords = words.stream()
+                .filter(word -> alphabetizeString(word).equalsIgnoreCase(alphabetizedWord))
+                .collect(Collectors.toList());
+
+        boolean areAnagrams;
+        if(matchingWords.size() == words.size()) {
+            areAnagrams = true;
+        } else {
+            areAnagrams = false;
+        }
+
+        GroupResponse response = GroupResponseBuilder.groupResponseBuilder()
+                .areAnagrams(areAnagrams).build();
 
         return response;
     }

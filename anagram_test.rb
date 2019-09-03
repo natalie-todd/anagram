@@ -29,7 +29,6 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_fetching_anagrams
-  # pend
     # fetch anagrams
     res = @client.get('/anagrams/read.json')
 
@@ -45,7 +44,6 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_fetching_anagrams_with_limit
-    # pend
     # fetch anagrams with limit
     # res = @client.get('/anagrams/read.json?limit=1')
     res = @client.get('/anagrams/read.json', 'limit=1')
@@ -58,7 +56,6 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_fetch_for_word_with_no_anagrams
-    # pend
     # fetch anagrams with limit
     res = @client.get('/anagrams/zyxwv.json')
 
@@ -70,7 +67,7 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_deleting_all_words
-    # pend
+
     res = @client.delete('/words.json')
 
     assert_equal('204', res.code, "Unexpected response code")
@@ -86,7 +83,7 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_deleting_all_words_multiple_times
-    # pend
+
     3.times do
       res = @client.delete('/words.json')
 
@@ -104,7 +101,6 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_deleting_single_word
-    # pend
     # delete the word
     res = @client.delete('/words/dear.json')
 
@@ -121,8 +117,7 @@ class TestCases < Test::Unit::TestCase
   end
 
   def test_fetching_count
-    # pend
-    # fetch count
+
     res = @client.get('/count.json')
 
     assert_equal('200', res.code, "Unexpected response code")
@@ -140,14 +135,29 @@ class TestCases < Test::Unit::TestCase
     assert_equal(expected_count, body)
 
   end
+
+  def test_fetching_anagramGroup_returns_true
+
+    res = @client.get('/anagramGroup.json', 'words=read, dare, dear')
+
+    assert_equal('200', res.code, "Unexpected response code")
+    assert_not_nil(res.body)
+
+    body = JSON.parse(res.body)
+
+    expected_response = {
+        "areAnagrams"=> true
+    }
+    assert_equal(expected_response, body)
+
+  end
+
   def test_deleting_word_and_anagrams
-    # pend
-    # delete the word
+
     res = @client.delete('/anagrams/dear.json')
 
     assert_equal('204', res.code, "Unexpected response code")
 
-    # expect it not to show up in results
     res = @client.get('/anagrams/read.json')
 
     assert_equal('200', res.code, "Unexpected response code")

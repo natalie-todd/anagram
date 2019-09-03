@@ -7,8 +7,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+import static java.util.Collections.synchronizedList;
 
 @Configuration
 public class DataStore {
@@ -32,8 +33,12 @@ public class DataStore {
         } finally {
             bufferedReader.close();
         }
-        List<String> threadSafeDictionary = Collections.synchronizedList(dictionary);
+        List<String> threadSafeDictionary = createThreadSafeDataStructure(dictionary);
 
         return threadSafeDictionary;
+    }
+
+    private List<String> createThreadSafeDataStructure(List<String> dictionary) {
+        return synchronizedList(dictionary);
     }
 }

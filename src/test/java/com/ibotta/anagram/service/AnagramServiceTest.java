@@ -4,9 +4,11 @@ import com.ibotta.anagram.controller.AddWordsResponse;
 import com.ibotta.anagram.model.AddWordsRequest;
 import com.ibotta.anagram.model.AnagramsFoundResponse;
 import com.ibotta.anagram.model.CountResponse;
+import com.ibotta.anagram.model.GroupResponse;
 import com.ibotta.anagram.model.builder.AddWordsRequestBuilder;
 import com.ibotta.anagram.model.builder.AnagramsFoundResponseBuilder;
 import com.ibotta.anagram.model.builder.CountResponseBuilder;
+import com.ibotta.anagram.model.builder.GroupResponseBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -113,7 +115,8 @@ public class AnagramServiceTest {
     @Test
     public void countWords_returnsDictionaryTotal() {
 
-        List<String> myDictionary = new ArrayList<String>(){{add("a");add("bee");add("camera");add("dog");add("elephant");}};
+        List<String> myDictionary = new ArrayList<String>()
+        {{add("a");add("bee");add("camera");add("dog");add("elephant");}};
 
         anagramService = new AnagramService(myDictionary);
 
@@ -132,15 +135,37 @@ public class AnagramServiceTest {
     }
 
     @Test
+    public void evaluateWords_returnsTrue_whenPassedGroupOfAnagrams() {
+
+        GroupResponse actualResponse = anagramService.evaluateWords(asList("read", "dare", "dear"));
+
+        GroupResponse expectedResponse = GroupResponseBuilder.groupResponseBuilder()
+                .areAnagrams(true).build();
+
+        assertThat(actualResponse, equalTo(expectedResponse));
+    }
+
+    @Test
+    public void evaluateWords_returnsFalse_whenPassedGroupOfWordsThatAreNotAnagrams() {
+
+        GroupResponse actualResponse = anagramService.evaluateWords(asList("read", "dare", "cat"));
+
+        GroupResponse expectedResponse = GroupResponseBuilder.groupResponseBuilder()
+                .areAnagrams(false).build();
+
+        assertThat(actualResponse, equalTo(expectedResponse));
+    }
+
+    @Test
     public void deleteAnagrams_removesWordAndItsAnagramsFromDictionary() {
 
-        List<String> myDictionary = new ArrayList<String>(){{add("read");add("dare");add("dear");}};
+        List<String> myDictionary = new ArrayList<String>(){{add("read");add("dare");add("dear");add("cat");}};
 
         anagramService = new AnagramService(myDictionary);
 
         ResponseEntity<Void> response = anagramService.deleteAnagrams("read");
 
-        List<String> expectedDictionary = asList();
+        List<String> expectedDictionary = asList("cat");
 
         assertThat(myDictionary, equalTo(expectedDictionary));
     }
