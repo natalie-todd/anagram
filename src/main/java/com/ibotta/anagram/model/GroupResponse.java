@@ -17,7 +17,7 @@ public class GroupResponse {
         this.areAnagrams = areAnagrams;
     }
 
-    public boolean isAreAnagrams() {
+    public boolean areAnagrams() {
         return areAnagrams;
     }
 

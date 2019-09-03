@@ -117,7 +117,7 @@ public class AnagramService {
                 .collect(Collectors.toList());
 
         boolean areAnagrams;
-        if(matchingWords.size() == words.size()) {
+        if(matchingWords.size() == words.size() && matchingWords.size() > 1) {
             areAnagrams = true;
         } else {
             areAnagrams = false;

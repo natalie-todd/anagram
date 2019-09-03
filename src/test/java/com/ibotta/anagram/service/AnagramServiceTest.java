@@ -26,8 +26,6 @@ public class AnagramServiceTest {
 
     private AnagramService anagramService;
 
-    private List<String> dictionary = new ArrayList<>();
-
     @Before
     public void setUp() {
 
@@ -148,6 +146,17 @@ public class AnagramServiceTest {
     public void evaluateWords_returnsFalse_whenPassedGroupOfWordsThatAreNotAnagrams() {
 
         GroupResponse actualResponse = anagramService.evaluateWords(asList("read", "dare", "cat"));
+
+        GroupResponse expectedResponse = GroupResponseBuilder.groupResponseBuilder()
+                .areAnagrams(false).build();
+
+        assertThat(actualResponse, equalTo(expectedResponse));
+    }
+
+    @Test
+    public void evaluateWords_returnsFalse_whenPassedOneWord() {
+
+        GroupResponse actualResponse = anagramService.evaluateWords(asList("read"));
 
         GroupResponse expectedResponse = GroupResponseBuilder.groupResponseBuilder()
                 .areAnagrams(false).build();
