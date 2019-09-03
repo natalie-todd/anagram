@@ -1,6 +1,5 @@
 package com.ibotta.anagram.service;
 
-import com.ibotta.anagram.controller.AddWordsResponse;
 import com.ibotta.anagram.model.AddWordsRequest;
 import com.ibotta.anagram.model.AnagramsFoundResponse;
 import com.ibotta.anagram.model.CountResponse;
@@ -44,7 +43,7 @@ public class AnagramServiceTest {
 
         anagramService = new AnagramService(myDictionary);
 
-        ResponseEntity<AddWordsResponse> addWordsResponseResponseEntity = anagramService.addWords(request);
+        ResponseEntity<Void> addWordsResponseResponseEntity = anagramService.addWords(request);
 
         List<String> expectedDictionary = asList("read", "dare", "dear", "charles");
 

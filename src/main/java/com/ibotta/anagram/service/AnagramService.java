@@ -1,6 +1,5 @@
 package com.ibotta.anagram.service;
 
-import com.ibotta.anagram.controller.AddWordsResponse;
 import com.ibotta.anagram.model.AddWordsRequest;
 import com.ibotta.anagram.model.AnagramsFoundResponse;
 import com.ibotta.anagram.model.CountResponse;
@@ -28,7 +27,7 @@ public class AnagramService {
         this.dictionary = dictionary;
     }
 
-    public ResponseEntity<AddWordsResponse> addWords(AddWordsRequest request) {
+    public ResponseEntity<Void> addWords(AddWordsRequest request) {
         List<String> wordsToAdd = request.getWords();
         wordsToAdd.stream()
                 .forEach(word -> {

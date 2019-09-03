@@ -28,7 +28,7 @@ public class WordsController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/words.json", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
-    public ResponseEntity<AddWordsResponse> addWords(@Valid @RequestBody AddWordsRequest request) {
+    public ResponseEntity<Void> addWords(@Valid @RequestBody AddWordsRequest request) {
     ResponseEntity response = anagramService.addWords(request);
         System.out.println("----->"+response);
     return response;
