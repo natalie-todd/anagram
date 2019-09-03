@@ -1,7 +1,6 @@
 package com.ibotta.anagram.model.builder;
 
 import com.ibotta.anagram.model.AddWordsRequest;
-import com.ibotta.anagram.model.AnagramsFoundResponse;
 
 import java.util.List;
 

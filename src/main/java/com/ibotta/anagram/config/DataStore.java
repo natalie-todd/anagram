@@ -1,4 +1,4 @@
-package com.ibotta.anagram.configuration;
+package com.ibotta.anagram.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
