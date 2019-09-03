@@ -131,13 +131,13 @@ class TestCases < Test::Unit::TestCase
     body = JSON.parse(res.body)
 
     expected_count = {
-        corpusTotal: 3,
-        min: 4,
-        max: 4,
-        median: 4,
-        average: 4
+        "corpusTotal"=> 3,
+        "min" => 4,
+        "max" => 4,
+        "median" => 4,
+        "average" => 4
     }
-    assert_equal(expected_count, body['corpusTotal', 'min', 'max', 'median', 'average'].sort)
+    assert_equal(expected_count, body)
 
   end
 end

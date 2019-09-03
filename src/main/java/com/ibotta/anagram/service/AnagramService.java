@@ -10,10 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static com.ibotta.anagram.utilities.AnagramHelper.limitIt;
 
@@ -70,15 +69,15 @@ public class AnagramService {
         return ResponseEntity.noContent().build();
     }
 
-    private Integer median(List<String> clone) {
+    private Integer median(List<Integer> clone) {
         Integer median;
         Integer index;
-        List<Integer> sorted = clone.stream().map(str -> str.length()).sorted().collect(Collectors.toList());
+        List<Integer> sorted = clone.stream().sorted().collect(Collectors.toList());
         Integer length = sorted.size();
 
         if (length % 2 == 0) {
             index = (length / 2) + (length - 1) / 2;
-            median = clone.get(index).length();
+            median = clone.get(index);
         } else {
             index = (length - 1) / 2;
             median = sorted.get(index);
@@ -89,17 +88,13 @@ public class AnagramService {
     public CountResponse countWords() {
 
         int length = dictionary.size();
-        List<String> clone = new ArrayList<>(dictionary);
+        List<Integer> clone = dictionary.stream().map(str -> str.length()).collect(Collectors.toList());
 
-        Integer min = clone.stream()
-                .min((str1, str2) -> Character.compare(str1.charAt(str1.length() - 1), str2.charAt(str2.length() - 1)))
-                .map(str -> str.length()).orElse(0);
+        Integer min = clone.stream().findFirst().orElse(0);
 
-        Integer max = clone.stream()
-                .max((str1, str2) -> Character.compare(str1.charAt(str1.length() - 1), str2.charAt(str2.length() - 1)))
-                .map(str -> str.length()).orElse(0);
+        Integer max = clone.get(clone.size() - 1);
 
-        Integer sum = clone.stream().sorted().map(str -> str.length()).reduce((x, y) -> x + y).orElse(0);
+        Integer sum = clone.stream().sorted().map(str -> str).reduce((x, y) -> x + y).orElse(0);
 
         Integer average = sum / length;
 
