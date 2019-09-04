@@ -138,4 +138,23 @@ Documentation
 
 Instructions
 =========
-- Anagram is a Spring Boot application with JUnit and Ruby tests.
+Anagram is a Spring Boot application. JUnit, Ruby tests, and Swagger are included. 
+
+## Requirements
+- In order to build and run locally, the following is required:
+    - JDK 1.8 from Oracle(https://www.oracle.com/technetwork/java/javase/downloads/index.html)
+    - Ruby ([docs](https://www.ruby-lang.org/en/documentation/installation/)
+    - Gradle (https://gradle.org/install/)
+    
+## Running the Application Locally
+- Enter './gradlew clean bootRun' into terminal. 
+
+## Using Swagger
+- Once application is running, you can go to your web browser and enter: localhost:3000/
+    - If there are issues connecting to the Swagger page, try localhost:3000/swagger-ui.html
+    
+## Running Tests
+- To run acceptance tests, enter 'ruby anagram_test.rb' into terminal.
+- To run unit tests enter './gradlew clean test' into terminal.
+
+        
