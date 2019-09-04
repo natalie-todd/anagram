@@ -119,3 +119,18 @@ Suggestions for documentation topics include:
 ---
 
 Please provide the code for the assignment either in a private repository (GitHub or Bitbucket) or as a zip file. If you have a deliverable that is deployed on the web please provide a link, otherwise give us instructions for running it locally.
+
+Documentation
+=========
+
+## Future Features to Implement
+- Endpoint that returns words starting with given single or multiple characters.
+- Endpoint that returns all palindromes within dictionary.
+
+## Implementation Details
+- The data store is created with a BufferedReader. To avoid the thread safety issues commonly associated with Lists, I wrote a method to change the dictionary to a synchronized list.  
+- Unit tests are written in JUnit; all methods are tested. I wrote acceptance tests for the optional endpoints I completed to keep consistent with the acceptance tests already present. 
+
+## Design overview
+- I chose to build a model package with immutable objects. I felt it was important to demonstrate the MVC format I am familiar with. 
+- I considered using Lombok instead of building out all of the components of the model objects. Benefits of Lombok would have included less opportunity for error caused by changes to the contents of POJOs, cleaner looking code, and quicker development of models. Ultimately I decided to write out the contents of my POJOs as this is the format most commonly used at my current place of employment.  
