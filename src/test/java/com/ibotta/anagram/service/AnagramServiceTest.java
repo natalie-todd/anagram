@@ -94,7 +94,7 @@ public class AnagramServiceTest {
 
         assertThat(myDictionary, equalTo(expectedDictionary));
     }
-    //TODO: what should happen when you try to delete a word that is not there
+
     @Test
     public void deleteAll_emptiesDictionary() {
 

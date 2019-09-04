@@ -133,4 +133,9 @@ Documentation
 
 ## Design overview
 - I chose to build a model package with immutable objects. I felt it was important to demonstrate the MVC format I am familiar with. 
-- I considered using Lombok instead of building out all of the components of the model objects. Benefits of Lombok would have included less opportunity for error caused by changes to the contents of POJOs, cleaner looking code, and quicker development of models. Ultimately I decided to write out the contents of my POJOs as this is the format most commonly used at my current place of employment.  
+- I considered using Lombok instead of building out all of the components of the model objects. Benefits of Lombok would have included less opportunity for error caused by changes to the contents of POJOs, cleaner looking code, and quicker development of models. Ultimately I decided to write out the contents of my POJOs as this is the format most commonly used at my current place of employment.
+- I thought about breaking the controller into multiple controllers, one for the required endpoints, and one for the optional endpoints, but I decided against it as all endpoints were very similar in subject matter.  
+
+Instructions
+=========
+- Anagram is a Spring Boot application with JUnit and Ruby tests.
